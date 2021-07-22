@@ -45,6 +45,31 @@ exports.update = function (req, res) {
     }
 };
 
+
+exports.catch = function (req, res) {
+    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        res.status(400).send({ error: true, message: 'Please provide all required field' });
+    } else {
+        Pokemon.catch(new Pokemon(req.body), function (err, pokemon) {
+            if (err)
+                res.send(err);
+            res.json({ error: false, message: 'Pokemon '+ req.body.nom_pok +' successfully catched' });
+        });
+    }
+};
+
+exports.release = function (req, res) {
+    if (req.body.constructor === Object && Object.keys(req.body).length === 0) {
+        res.status(400).send({ error: true, message: 'Please provide all required field' });
+    } else {
+        Pokemon.release(new Pokemon(req.body), function (err, pokemon) {
+            if (err)
+                res.send(err);
+            res.json({ error: false, message: 'Pokemon '+ req.body.nom_pok +' successfully released' });
+        });
+    }
+};
+
 exports.delete = function (req, res) {
     Pokemon.delete(req.params.id, function (err, pokemon) {
         if (err)

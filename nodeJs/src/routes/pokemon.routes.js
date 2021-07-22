@@ -7,8 +7,12 @@ router.get('/', pokemonController.findAll);
 router.post('/', pokemonController.create);
 // Retrieve a single pokemon with id
 router.get('/:id', pokemonController.findById);
-// Update a pokemon with id
+// Update a pokemon
 router.put('/', pokemonController.update);
+// Catch a pokemon with nom
+router.put('/catch', pokemonController.catch);
+// Release a pokemon with nom
+router.put('/release', pokemonController.release);
 // Delete a pokemon with id
 router.delete('/:id', pokemonController.delete);
 module.exports = router

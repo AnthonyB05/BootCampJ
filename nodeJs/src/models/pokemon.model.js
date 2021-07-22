@@ -46,7 +46,7 @@ Pokemon.findAll = function (result) {
 };
 
 Pokemon.update = function (pokemon, result) {
-    dbConn.query("UPDATE pokemons SET nom_pok=?, appartenir=? WHERE id_pok = ?", [ pokemon.nom_pok, pokemon.appartenir, pokemon.id_pok], function (err, res) {
+    dbConn.query("UPDATE pokemons SET nom_pok=?, appartenir=? WHERE id_pok = ?", [pokemon.nom_pok, pokemon.appartenir, pokemon.id_pok], function (err, res) {
         if (err) {
             console.log("error: ", err);
             result(null, err);
@@ -67,4 +67,27 @@ Pokemon.delete = function (id, result) {
         }
     });
 };
+
+Pokemon.catch = function (pokemon,result) {
+    dbConn.query("UPDATE pokemons SET appartenir=1 WHERE nom_pok = ?", [pokemon.nom_pok], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
+Pokemon.release = function (pokemon,result) {
+    dbConn.query("UPDATE pokemons SET appartenir=0 WHERE nom_pok = ?", [pokemon.nom_pok], function (err, res) {
+        if (err) {
+            console.log("error: ", err);
+            result(null, err);
+        } else {
+            result(null, res);
+        }
+    });
+};
+
 module.exports = Pokemon;
